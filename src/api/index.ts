@@ -4,7 +4,7 @@ import cart from "./cart";
 import sign from "./signin";
 import orders from "./orders";
 
-axios.defaults.baseURL = import.meta.env.API_URL || "/api/";
+axios.defaults.baseURL = import.meta.env.API_URL || "http://127.0.0.1:5000/";
 const api = {
   products,
   cart,
