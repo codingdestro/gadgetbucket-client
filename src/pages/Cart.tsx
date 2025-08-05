@@ -1,48 +1,51 @@
-import Loading from "../components/status/Loading";
-import useCart, { CartType } from "../store/useCarts";
-import { useEffect } from "react";
-import Error from "../components/status/Error";
 import CartProductCard from "../components/cart/CartProductCard";
-import CartCheckout from "../components/cart/CartCheckout";
+
+const dummyCart = [
+  {
+    id: "1",
+    product: {
+      img: "https://m.media-amazon.com/images/I/71UCE4pNdVL._AC_UY218_.jpg",
+      title: "Product 1",
+      price: 1000,
+    },
+  },
+  {
+    id: "2",
+    product: {
+      img: "https://m.media-amazon.com/images/I/71xc4OlTkaL._AC_UY218_.jpg",
+      title: "Acer Gaming Monitor",
+      price: 22000,
+    },
+  },
+];
 
 const Cart = () => {
-  const { cart } = useCart();
-  const isLoading = useCart((state) => state.isLoading);
-  const error = useCart((state) => state.error);
-  const fetchCart = useCart((state) => state.fetchCart);
+  const cart = dummyCart;
 
-  useEffect(() => {
-    fetchCart();
-  }, []);
-
-  return isLoading ? (
-    <Loading />
-  ) : error ? (
-    <>
-      <Error msg={error} />
-    </>
-  ) : cart.length === 0 ? (
-    <Error msg="cart is empty" />
-  ) : (
-    <section className="flex   sm:flex-row flex-col gap-5  relative items-center sm:items-start  ">
-      <div
-        className=" max-w-[600px] outlet ax-h-[620px] gap-y-5 flex flex-col border
-      rounded-lg  shadow-md scroll-none overflow-auto"
-      >
-        {cart.map(({ product, id }: CartType, idx: number) => {
+  return (
+    <section className="flex flex-col gap-5  relative items-center mt-5 ">
+      <div className="gap-y-5 w-full p-5 flex flex-col">
+        {cart.map(({ product, id }, idx: number) => {
           return (
             <CartProductCard
+              key={idx}
               id={id}
               img={product.img}
               title={product.title}
               price={product.price}
-              key={idx}
+              quantity={2}
             />
           );
         })}
       </div>
-
-      <CartCheckout />
+      <div className="p-5 text-right rounded-lg mb-5 w-full border">
+        <h1 className="text-2xl font-bold text-gray-800 ">
+          Total: ₹{cart.reduce((acc, item) => acc + item.product.price, 0)}
+        </h1>
+        <button className="mt-4 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors">
+          Proceed to Checkout
+        </button>
+      </div>
     </section>
   );
 };

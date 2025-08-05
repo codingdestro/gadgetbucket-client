@@ -20,12 +20,12 @@ const route = createBrowserRouter(
     <Route>
       <Route element={<Navbar />}>
         <Route path="" element={<Home />} />
+          <Route path="cart" element={<Cart />} />
       </Route>
       <Route loader={TokenLoader} element={<PrivateRoute />}>
         <Route element={<Navbar />}>
           <Route path="" element={<Home />} />
           <Route path="make/order/:Id" element={<MakeOrder />} />
-          <Route path="cart" element={<Cart />} />
           <Route path="order" element={<Order />} />
         </Route>
       </Route>
