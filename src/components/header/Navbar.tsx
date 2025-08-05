@@ -1,73 +1,165 @@
+import { LogIn } from "lucide-react";
 import { useState } from "react";
 import { Outlet, Link } from "react-router-dom";
-import Menu from "./Menu";
+
+const NavLink = ({
+  to,
+  children,
+}: {
+  to: string;
+  children: React.ReactNode;
+}) => (
+  <Link
+    to={to}
+    className="text-text-body hover:text-primary px-3 py-2 text-sm font-medium transition-colors"
+  >
+    {children}
+  </Link>
+);
+
 const Navbar = () => {
   const [show, setShow] = useState(false);
 
   const toggleShow = () => setShow((prev: boolean) => !prev);
 
   return (
-    <div className="flex flex-col items-enter justify-between">
-      <section
-        className="border flex flex-col ssm:flex-row   
-      ssm:items-center justify-between ssm:justify-between py-2 px-5 mb-5 border-b-2  "
-      >
-        <div className="flex justify-between items-center ssm:block">
-          <div className="text-2xl font-semibold tracking-wider italic">
-            <Link to={"/"}>
-              <div className="flex text-2xl items-center">
-                <span>Gadget B</span>
-                <img
-                  className="w-[24px] h-[24px]"
-                  src="https://cdn-icons-png.flaticon.com/512/2989/2989545.png"
-                  alt="box"
-                />
-                <span>cket</span>
+    <>
+      <nav className="bg-bg-default border-b border-border-light sticky top-0 z-50 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-50">
+          <div className="flex justify-between items-center h-16">
+            {/* Logo/Brand */}
+            <div className="flex-shrink-0">
+              <Link
+                to="/"
+                className="text-2xl font-bold text-primary hover:text-primary/80 transition-colors"
+              >
+                GadgetBucket
+              </Link>
+            </div>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:block">
+              <div className="ml-10 flex items-baseline space-x-8">
+                <NavLink to="/">Home</NavLink>
+                <NavLink to="/products">Products</NavLink>
+                <NavLink to="/categories">Categories</NavLink>
+                <NavLink to="/about">About</NavLink>
+                <NavLink to="/contact">Contact</NavLink>
               </div>
-            </Link>
-          </div>
-          <div className="ssm:hidden cursor-pointer">
-            <span onClick={toggleShow}>
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/12596/12596938.png"
-                width={32}
-                alt=""
-              />
-            </span>
+            </div>
+
+            {/* Desktop Action Buttons */}
+            <div className="hidden md:flex items-center border rounded-lg bg-primary">
+              <Link
+                to="/cart"
+                className="text-white hover:text-primary p-2 transition-colors relative"
+              >
+                <LogIn className="w-5 h-5" />
+              </Link>
+              <Link
+                to="/login"
+                className="bg-primary text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-primary/90 transition-colors click"
+              >
+                Login
+              </Link>
+            </div>
+
+            {/* Mobile menu button */}
+            <div className="md:hidden">
+              <button
+                onClick={toggleShow}
+                className="inline-flex items-center justify-center p-2 rounded-md text-text-body hover:text-primary hover:bg-bg-secondary focus:outline-none transition-colors"
+              >
+                <svg
+                  className={`${show ? "hidden" : "block"} h-6 w-6`}
+                  stroke="currentColor"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+                <svg
+                  className={`${show ? "block" : "hidden"} h-6 w-6`}
+                  stroke="currentColor"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
+
+        {/* Mobile Navigation Menu */}
         <div
-          className={`flex flex-col ssm:flex-row  transition-all overflow-hidden items-center mt-2 ssm:mt-0 gap-5  ${
-            show ? "show" : "hide"
-          } `}
+          data-active={show}
+          className="h-0 overflow-hidden data-[active=true]:h-[80vh] transition-all opacity-0 data-[active=true]:opacity-100  duration-500 w-full z-10 absolute bg-white border"
         >
-          <Menu path="/" onclickHandler={toggleShow} tab="home" show={true} />
-          <Menu
-            onclickHandler={toggleShow}
-            path="/cart"
-            tab="cart"
-            show={false}
-          />
-          <Menu
-            path="/order"
-            tab="order"
-            onclickHandler={toggleShow}
-            show={false}
-          />
-          <div className="border px-5 py-1 bg-sky-500 rounded-lg">
+          <div className="px-2 pt-2 pb-3 space-y-1 bg-bg-secondary border-t border-border-light animate-popup">
             <Link
-              to={"account/signin"}
-              onClick={() => localStorage.removeItem("token")}
+              to="/"
+              className="block px-3 py-2 text-base font-medium text-text-body hover:text-primary hover:bg-bg-default transition-colors rounded-md"
+              onClick={() => setShow(false)}
             >
-              logout
+              Home
             </Link>
+            <Link
+              to="/products"
+              className="block px-3 py-2 text-base font-medium text-text-body hover:text-primary hover:bg-bg-default transition-colors rounded-md"
+              onClick={() => setShow(false)}
+            >
+              Products
+            </Link>
+            <Link
+              to="/categories"
+              className="block px-3 py-2 text-base font-medium text-text-body hover:text-primary hover:bg-bg-default transition-colors rounded-md"
+              onClick={() => setShow(false)}
+            >
+              Categories
+            </Link>
+            <Link
+              to="/about"
+              className="block px-3 py-2 text-base font-medium text-text-body hover:text-primary hover:bg-bg-default transition-colors rounded-md"
+              onClick={() => setShow(false)}
+            >
+              About
+            </Link>
+            <Link
+              to="/contact"
+              className="block px-3 py-2 text-base font-medium text-text-body hover:text-primary hover:bg-bg-default transition-colors rounded-md"
+              onClick={() => setShow(false)}
+            >
+              Contact
+            </Link>
+            <div className="flex items-center space-x-3 px-3 py-2">
+              <Link
+                to="/login"
+                className="flex items-center justify-center gap-4 bg-primary text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-primary/90 transition-colors click flex-1 text-center"
+                onClick={() => setShow(false)}
+              >
+                <LogIn className="w-5 h-5" />
+                Login
+              </Link>
+            </div>
           </div>
         </div>
-      </section>
-      <section className="  flex items-center justify-center ">
+      </nav>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
         <Outlet />
-      </section>
-    </div>
+      </div>
+    </>
   );
 };
 
