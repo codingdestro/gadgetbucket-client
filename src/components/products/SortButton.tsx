@@ -14,7 +14,7 @@ const SortButton = () => {
           <span>sort :</span>
         </div>
         <select
-          className="bg-transparent border-none px-2 py-2 rounded-lg outline-none cursor-pointer"
+          className="bg-transparent border-none px-2 py-2 rounded-lg outline-hidden cursor-pointer"
           onChange={(e) => handleSelectedOption(e.target.value)}
         >
           <option value="default">defult</option>

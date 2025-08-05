@@ -82,7 +82,7 @@ const MakeOrder = () => {
           <h2 className="text-slate-500">cash on delivery</h2>
           <p className="flex items-center gap-2 ">
             <span className="text-sm">total :</span>
-            <span className="font-[600] italic">{data}</span>
+            <span className="font-semibold italic">{data}</span>
           </p>
         </div>
         <SubmitButton disable={disable} onSubmit={() => submitOrder()}>

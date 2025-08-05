@@ -12,7 +12,7 @@ const ProductCard = ({ product }: Props) => {
   const redirect = useNavigate();
   return (
     <div className="border p-5 flex flex-col gap-3 shadow-md rounded-md justify-center items-center">
-      <div className="w-[12rem] h-[12rem] p-5 flex items-center justify-center">
+      <div className="w-48 h-48 p-5 flex items-center justify-center">
         <img src={product.img} alt="this is what is this" />
       </div>
       <div className="">

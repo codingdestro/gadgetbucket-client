@@ -34,7 +34,7 @@ export const SubmitButton = ({
   return (
     <button
       onClick={() => !disable && onSubmit()}
-      className="w-full click py-2 border flex justify-center items-center rounded-3xl bg-gradient-to-r to-sky-400 from-pink-400 text-white capitalize"
+      className="w-full click py-2 border flex justify-center items-center rounded-3xl bg-linear-to-r to-sky-400 from-pink-400 text-white capitalize"
     >
       {disable ? "loading..." : children}
     </button>
@@ -56,7 +56,7 @@ export const InputBoxText = ({
           type={type}
           name={name}
           placeholder={placeholder}
-          className="p-2 mt-3 w-full border-b bg-transparent outline-none "
+          className="p-2 mt-3 w-full border-b bg-transparent outline-hidden "
           onChange={handleOnchange}
         />
       </div>
@@ -68,7 +68,7 @@ const InputForm = ({ children, heading }: ChildrenProp) => {
   return (
     <div className="relative">
       <section className=" bg-white border w-[350px] min-h-[500px] p-5  flex  flex-wrap items-center shadow-md rounded-3xl relative ">
-        <h1 className="text-3xl text-center w-full capitalize font-[500] mb-10 ">
+        <h1 className="text-3xl text-center w-full capitalize font-medium mb-10 ">
           {heading}{" "}
         </h1>
         <div className="w-full flex flex-col gap-7  ">{children}</div>

@@ -68,7 +68,7 @@ const Home = () => {
           <div className=" " data-placeholder="test">
             <input
               type="password"
-              className={`p-2 mt-3 w-full border-b bg-transparent outline-none ${
+              className={`p-2 mt-3 w-full border-b bg-transparent outline-hidden ${
                 match || "border-red-500"
               }`}
               placeholder="Enter your password"
@@ -82,7 +82,7 @@ const Home = () => {
           <div className=" " data-placeholder="test">
             <input
               type="password"
-              className={`p-2 mt-3 w-full border-b bg-transparent outline-none ${
+              className={`p-2 mt-3 w-full border-b bg-transparent outline-hidden ${
                 match || "border-red-500"
               }`}
               placeholder="Enter your password"

@@ -38,7 +38,7 @@ const CartCheckout = () => {
       {show && (
         <div
           className="absolute top-[1%] translate-y-[-13%] flex  items-center justify-center
-         w-full h-screen backdrop-blur-sm "
+         w-full h-screen backdrop-blur-xs "
         >
           <Alert show={alertButton.show} msg="invalid input" />
           <div className="">
@@ -53,7 +53,7 @@ const CartCheckout = () => {
                 confirm checkout
               </SubmitButton>
               <button
-                className="shadow-sm rounded-3xl p-2 cancelled"
+                className="shadow-xs rounded-3xl p-2 cancelled"
                 onClick={() => setShow(false)}
               >
                 close

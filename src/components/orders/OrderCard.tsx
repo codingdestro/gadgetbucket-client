@@ -16,12 +16,12 @@ const OrderCard = ({ id, date, price, address, status }: Props) => {
       </div>
       <div className="text-sm place-self-end">
         <span>₹</span>
-        <span className="italic font-[600]">{price}</span>
+        <span className="italic font-semibold">{price}</span>
       </div>
 
       <span className="line-clamp-1">{address}</span>
       <span
-        className={`${status} place-self-end text-center font-[500] px-5 rounded-lg capitalize `}
+        className={`${status} place-self-end text-center font-medium px-5 rounded-lg capitalize `}
       >
         {status}
       </span>
