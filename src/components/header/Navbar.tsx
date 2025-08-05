@@ -1,6 +1,7 @@
 import { LogIn } from "lucide-react";
 import { useState } from "react";
 import { Outlet, Link } from "react-router-dom";
+import Footer from "../Footer";
 
 const NavLink = ({
   to,
@@ -24,7 +25,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-bg-default border-b border-border-light sticky top-0 z-50 shadow-sm">
+      <nav className="bg-bg-default border-b border-border-light sticky top-0 z-50 shadow-sm bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-50">
           <div className="flex justify-between items-center h-16">
             {/* Logo/Brand */}
@@ -51,15 +52,10 @@ const Navbar = () => {
             {/* Desktop Action Buttons */}
             <div className="hidden md:flex items-center border rounded-lg bg-primary">
               <Link
-                to="/cart"
-                className="text-white hover:text-primary p-2 transition-colors relative"
+                to="/login"
+                className="bg-primary text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-primary/90 transition-colors click flex items-center justify-center gap-4"
               >
                 <LogIn className="w-5 h-5" />
-              </Link>
-              <Link
-                to="/login"
-                className="bg-primary text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-primary/90 transition-colors click"
-              >
                 Login
               </Link>
             </div>
@@ -156,8 +152,9 @@ const Navbar = () => {
         </div>
       </nav>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+      <div className="max-w-7xl mx-auto ">
         <Outlet />
+        <Footer/>
       </div>
     </>
   );

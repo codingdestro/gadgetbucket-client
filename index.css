@@ -1,40 +1,62 @@
 @import "tailwindcss";
 
 :root {
-  /* Primary Colors */
-  --color-primary: #2a7de1;
-  --color-primary-variant: #1c5db2;
+  /* Primary Colors - Deep Emerald & Forest */
+  --color-primary: #047857;
+  --color-primary-variant: #065f46;
 
-  /* Secondary Colors */
-  --color-secondary: #f4f6f8;
-  --color-secondary-variant: #e1e5ea;
+  /* Secondary Colors - Warm Cream & Soft Beige */
+  --color-secondary: #fefcf3;
+  --color-secondary-variant: #f7f3e9;
 
   /* Accent Colors */
-  --color-accent-red: #f94f4f;
-  --color-accent-green: #21cfa6;
+  --color-accent-coral: #ff6b6b;
+  --color-accent-gold: #f59e0b;
+  --color-accent-purple: #8b5cf6;
 
   /* Neutral Colors */
   --color-white: #ffffff;
-  --color-light-gray: #f9fafb;
-  --color-medium-gray: #666666;
-  --color-muted-gray: #999999;
-  --color-dark-gray: #333333;
+  --color-light-cream: #fffef7;
+  --color-warm-gray: #6b7280;
+  --color-slate-gray: #4b5563;
+  --color-charcoal: #1f2937;
 
   /* Text Colors */
-  --text-heading: var(--color-dark-gray);
-  --text-body: var(--color-medium-gray);
-  --text-muted: var(--color-muted-gray);
+  --text-heading: var(--color-charcoal);
+  --text-body: var(--color-slate-gray);
+  --text-muted: var(--color-warm-gray);
   --text-on-primary: var(--color-white);
-  --text-on-secondary: var(--color-dark-gray);
+  --text-on-secondary: var(--color-charcoal);
 
   /* Background Colors */
   --bg-default: var(--color-white);
   --bg-secondary: var(--color-secondary);
-  --bg-footer: var(--color-primary-variant);
+  --bg-tertiary: var(--color-light-cream);
+  --bg-footer: var(--color-charcoal);
 
   /* Border Colors */
-  --border-light: var(--color-secondary-variant);
-  --border-muted: var(--color-muted-gray);
+  --border-light: #e5e7eb;
+  --border-medium: #d1d5db;
+  --border-muted: var(--color-warm-gray);
+
+  /* Button Variants */
+  --btn-primary: var(--color-primary);
+  --btn-primary-hover: var(--color-primary-variant);
+  --btn-secondary: var(--color-secondary-variant);
+  --btn-secondary-hover: #ede7d3;
+  --btn-accent: var(--color-accent-coral);
+  --btn-accent-hover: #ff5252;
+
+  /* Status Colors */
+  --status-success: var(--color-primary);
+  --status-warning: var(--color-accent-gold);
+  --status-error: var(--color-accent-coral);
+  --status-info: var(--color-accent-purple);
+
+  /* Shadow Colors */
+  --shadow-light: rgba(31, 41, 55, 0.05);
+  --shadow-medium: rgba(31, 41, 55, 0.1);
+  --shadow-heavy: rgba(31, 41, 55, 0.25);
 }
 
 @theme {
