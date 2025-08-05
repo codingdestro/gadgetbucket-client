@@ -18,12 +18,15 @@ import Order from "../pages/Order";
 const route = createBrowserRouter(
   createRoutesFromElements(
     <Route>
+      <Route element={<Navbar />}>
+        <Route path="" element={<Home />} />
+      </Route>
       <Route loader={TokenLoader} element={<PrivateRoute />}>
         <Route element={<Navbar />}>
           <Route path="" element={<Home />} />
           <Route path="make/order/:Id" element={<MakeOrder />} />
           <Route path="cart" element={<Cart />} />
-          <Route path="order" element={<Order/>} />
+          <Route path="order" element={<Order />} />
         </Route>
       </Route>
       <Route path="/account" loader={TokenLoader} element={<Account />}>

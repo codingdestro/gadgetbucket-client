@@ -1,11 +1,63 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+
+:root {
+  /* Primary Colors */
+  --color-primary: #2a7de1;
+  --color-primary-variant: #1c5db2;
+
+  /* Secondary Colors */
+  --color-secondary: #f4f6f8;
+  --color-secondary-variant: #e1e5ea;
+
+  /* Accent Colors */
+  --color-accent-red: #f94f4f;
+  --color-accent-green: #21cfa6;
+
+  /* Neutral Colors */
+  --color-white: #ffffff;
+  --color-light-gray: #f9fafb;
+  --color-medium-gray: #666666;
+  --color-muted-gray: #999999;
+  --color-dark-gray: #333333;
+
+  /* Text Colors */
+  --text-heading: var(--color-dark-gray);
+  --text-body: var(--color-medium-gray);
+  --text-muted: var(--color-muted-gray);
+  --text-on-primary: var(--color-white);
+  --text-on-secondary: var(--color-dark-gray);
+
+  /* Background Colors */
+  --bg-default: var(--color-white);
+  --bg-secondary: var(--color-secondary);
+  --bg-footer: var(--color-primary-variant);
+
+  /* Border Colors */
+  --border-light: var(--color-secondary-variant);
+  --border-muted: var(--color-muted-gray);
+}
 
 @theme {
   --breakpoint-ssm: 400px;
-
-  --color-primary: #000080;
-  --color-secondary: #708090;
-  --color-accent: #4682b4;
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-accent-red: var(--color-accent-red);
+  --color-accent-green: var(--color-accent-green);
+  --color-white: var(--color-white);
+  --color-light-gray: var(--color-light-gray);
+  --color-medium-gray: var(--color-medium-gray);
+  --color-muted-gray: var(--color-muted-gray);
+  --color-dark-gray: var(--color-dark-gray);
+  --text-heading: var(--text-heading);
+  --text-body: var(--text-body);
+  --text-muted: var(--text-muted);
+  --text-on-primary: var(--text-on-primary);
+  --text-on-secondary: var(--text-on-secondary);
+  --bg-default: var(--bg-default);
+  --bg-secondary: var(--bg-secondary);
+  --bg-footer: var(--bg-footer);
+  --border-light: var(--border-light);
+  --border-muted: var(--border-muted);
   --color-pending: #ffa500;
   --color-ordered: #008000;
   --color-cancelled: #ff0000;
@@ -38,14 +90,6 @@
   }
 }
 
-/*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
 @layer base {
   *,
   ::after,
@@ -75,10 +119,10 @@ input[type="number"]::-webkit-inner-spin-button {
   display: none;
 }
 
-.outlet{
+.outlet {
   /* top: 100px; */
   /* position: fixed; */
-  height: calc(100svh - 120px); 
+  height: calc(100svh - 120px);
   /* overflow: auto; */
 }
 
@@ -126,11 +170,6 @@ input[type="number"]::-webkit-inner-spin-button {
     animation: hideToTop 0.2s forwards;
   }
 }
-
-/* pending: "#FFA500",
-        ordered: "#008000",
-        cancelled: " #FF0000",
-        delivered: "#0000FF", */
 
 .pending {
   color: hsl(39, 100%, 50%);
