@@ -1,5 +1,5 @@
 import { Navigate, useLoaderData, Outlet } from "react-router";
-const index = () => {
+const Index = () => {
   const isAuthenticated = useLoaderData();
 
   return isAuthenticated ? (
@@ -11,4 +11,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;
