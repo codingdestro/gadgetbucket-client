@@ -1,7 +1,7 @@
 import api from "../../api";
 
 const loader = async () => {
-  let token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
   try {
     if (token) {
       const { status, data } = await api.tokenAuth(token);
