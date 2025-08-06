@@ -15,6 +15,8 @@ import Cart from "../pages/Cart";
 import MakeOrder from "../pages/MakeOrder";
 import Order from "../pages/Order";
 import Products from "../pages/products";
+import About from "../pages/About";
+import Contact from "../pages/Contact";
 
 const route = createBrowserRouter(
   createRoutesFromElements(
@@ -23,6 +25,8 @@ const route = createBrowserRouter(
         <Route path="" element={<Home />} />
           <Route path="cart" element={<Cart />} />
           <Route path="products" element={<Products />} />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
       </Route>
       <Route loader={TokenLoader} element={<PrivateRoute />}>
         <Route element={<Navbar />}>
