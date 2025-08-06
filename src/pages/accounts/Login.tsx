@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Eye, EyeOff, Mail, Lock, ShoppingBag } from "lucide-react";
 
 const Login = () => {
@@ -62,7 +63,9 @@ const Login = () => {
         <div className="text-center">
           <div className="flex items-center justify-center space-x-2 mb-6">
             <ShoppingBag className="h-10 w-10 text-primary" />
-            <span className="text-3xl font-bold text-gray-900">GadgetBucket</span>
+            <span className="text-3xl font-bold text-gray-900">
+              GadgetBucket
+            </span>
           </div>
           <h2 className="text-3xl font-bold text-gray-900 mb-2">
             Welcome back
@@ -234,9 +237,12 @@ const Login = () => {
         <div className="text-center">
           <p className="text-sm text-gray-600">
             Don't have an account?{" "}
-            <button className="font-medium text-blue-600 hover:text-blue-500">
+            <Link
+              to="../signin"
+              className="font-medium text-blue-600 hover:text-blue-500"
+            >
               Sign up for free
-            </button>
+            </Link>
           </p>
         </div>
 
