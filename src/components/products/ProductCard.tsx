@@ -1,46 +1,68 @@
-import { useNavigate } from "react-router";
 import { ProductType } from "../../types/productType";
-import useProducts from "../../store/useProducts";
 
 interface Props {
-  product: ProductType;
+  product: ProductType & {
+    discount?: number; // Optional discount percentage
+    originalPrice?: number; // Optional original price for comparison
+    rating?: number; // Optional rating for the product
+  };
 }
 const ProductCard = ({ product }: Props) => {
-  const addToCartProduct = useProducts((state) => state.addToCartProduct);
-  const isAddedToCart = useProducts((state) => state.isAddedToCart);
-
-  const redirect = useNavigate();
   return (
-    <div className="border p-5 flex flex-col gap-3 shadow-md rounded-md justify-center items-center">
-      <div className="w-48 h-48 p-5 flex items-center justify-center">
-        <img src={product.img} alt="this is what is this" />
-      </div>
-      <div className="">
-        <div className=" line-clamp-2">
-          <h2>{product.title}</h2>
-        </div>
-        <div className="mt-1 flex gap-[5px]">
-          <span className="font-semibold text-xl">{product.textPrice}</span>
-        </div>
-      </div>
-      <div className="flex gap-x-5 md:flex-col lg:flex-row md:gap-y-2 ">
-        <button
-          className="bg-accent text-white rounded-lg  px-5 py-2"
-          onClick={() => redirect(`/make/order/${product.id}`)}
-        >
-          order now
-        </button>
-        <div className="bg-orange-500  rounded-lg py-2 px-5">
-          {isAddedToCart !== product.id ? (
-            <button onClick={() => !isAddedToCart && addToCartProduct(product.id)}>
-              add to cart
-            </button>
-          ) : (
-            <div>loading...</div>
+    <>
+      <div className="bg-white rounded-lg border border-gray-200 shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col h-full">
+        <div className="relative aspect-square overflow-hidden">
+          <img
+            src={product.image}
+            alt={product.title}
+            className="w-full h-full object-contain p-5"
+          />
+          {product.discount && (
+            <span className="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded-md text-sm font-medium">
+              {product.discount}% OFF
+            </span>
           )}
         </div>
+
+        <div className="p-4 flex flex-col flex-grow">
+          <h3 className="font-semibold text-gray-800 text-lg mb-2 line-clamp-2">
+            {product.title}
+          </h3>
+
+          <p className="text-gray-600 text-sm mb-3 line-clamp-3 flex-grow">
+            {product.description}
+          </p>
+
+          <div className="mt-auto">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <span className="text-2xl font-bold text-gray-900">
+                  ${product.price}
+                </span>
+                {product.originalPrice && (
+                  <span className="text-lg text-gray-500 line-through">
+                    ${product.originalPrice}
+                  </span>
+                )}
+              </div>
+
+              {product.rating && (
+                <div className="flex items-center gap-1">
+                  <span className="text-yellow-400">★</span>
+                  <span className="text-sm text-gray-600">
+                    {product.rating}
+                  </span>
+                </div>
+              )}
+            </div>
+
+            <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200">
+              Add to Cart
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
