@@ -11,9 +11,12 @@ import Home from "../pages/home";
 import Signin from "../pages/accounts/Signin";
 import Login from "../pages/accounts/Login";
 import Cart from "../pages/Cart";
+import Order from "../pages/Order";
 import Products from "../pages/products";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
+import TrackOrder from "../pages/TrackOrder";
+import ViewProduct from "../pages/ViewProduct";
 
 const route = createBrowserRouter(
   createRoutesFromElements(
@@ -21,7 +24,10 @@ const route = createBrowserRouter(
       <Route element={<Navbar />}>
         <Route path="" element={<Home />} />
         <Route path="cart" element={<Cart />} />
+        <Route path="order" element={<Order />} />
+        <Route path="track/:orderId" element={<TrackOrder />} />
         <Route path="products" element={<Products />} />
+        <Route path="product/:productId" element={<ViewProduct />} />
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
       </Route>

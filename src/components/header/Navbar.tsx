@@ -43,6 +43,8 @@ const Navbar = () => {
               <div className="ml-10 flex items-baseline space-x-8">
                 <NavLink to="/">Home</NavLink>
                 <NavLink to="/products">Products</NavLink>
+                <NavLink to="/order">Order</NavLink>
+                <NavLink to="/cart">Cart</NavLink>
                 <NavLink to="/categories">Categories</NavLink>
                 <NavLink to="/about">About</NavLink>
                 <NavLink to="/contact">Contact</NavLink>
@@ -118,6 +120,20 @@ const Navbar = () => {
               Products
             </Link>
             <Link
+              to="/order"
+              className="block px-3 py-2 text-base font-medium text-text-body hover:text-primary hover:bg-bg-default transition-colors rounded-md"
+              onClick={() => setShow(false)}
+            >
+              Order
+            </Link>
+            <Link
+              to="/cart"
+              className="block px-3 py-2 text-base font-medium text-text-body hover:text-primary hover:bg-bg-default transition-colors rounded-md"
+              onClick={() => setShow(false)}
+            >
+              Cart
+            </Link>
+            <Link
               to="/categories"
               className="block px-3 py-2 text-base font-medium text-text-body hover:text-primary hover:bg-bg-default transition-colors rounded-md"
               onClick={() => setShow(false)}
@@ -154,8 +170,8 @@ const Navbar = () => {
 
       <div className="max-w-7xl mx-auto ">
         <Outlet />
-        <Footer />
       </div>
+      <Footer />
     </>
   );
 };
