@@ -11,6 +11,7 @@ import Home from "../pages/home";
 import Signin from "../pages/accounts/Signin";
 import Login from "../pages/accounts/Login";
 import Cart from "../pages/Cart";
+import Order from "../pages/Order";
 import Products from "../pages/products";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
@@ -21,6 +22,7 @@ const route = createBrowserRouter(
       <Route element={<Navbar />}>
         <Route path="" element={<Home />} />
         <Route path="cart" element={<Cart />} />
+        <Route path="order" element={<Order />} />
         <Route path="products" element={<Products />} />
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
