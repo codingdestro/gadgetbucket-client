@@ -3,16 +3,16 @@ import useProducts from "../store/useProducts";
 import { useEffect } from "react";
 
 const PrivateRoute = () => {
-  const fetchProducts = useProducts((state)=>state.fetch)
+  const fetchProducts = useProducts((state) => state.fetch);
 
-  useEffect(()=>{
-fetchProducts()
-  },[])
+  useEffect(() => {
+    fetchProducts();
+  }, []); //eslint-disable-line
   const isAuthenticated = useLoaderData();
   return (
-    <div>
+    <>
       {isAuthenticated ? <Outlet /> : <Navigate to={"/account/signin"} />}
-    </div>
+    </>
   );
 };
 
