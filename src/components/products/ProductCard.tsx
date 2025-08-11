@@ -3,7 +3,7 @@ import { ProductType } from "../../types/productType";
 interface Props {
   product: ProductType & {
     discount?: number; // Optional discount percentage
-    originalPrice?: number; // Optional original price for comparison
+    originalPrice?: number |string; // Optional original price for comparison
     rating?: number; // Optional rating for the product
   };
 }

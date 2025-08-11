@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import ProductCard from "../components/products/ProductCard";
 import SortButton from "../components/products/SortButton";
+import api from "../api";
 
 const sampleProduct = {
   id: "1",
@@ -12,7 +14,23 @@ const sampleProduct = {
   rating: 4.5, // Optional rating for the product
   category: "Electronics",
 };
-const products = () => {
+const Products = () => {
+  const [products, setProducts] = useState<
+    {
+      id: string;
+      name: string;
+      image: string;
+      description: string;
+      price: string;
+      stockQuantity: number;
+    }[]
+  >([]);
+  useEffect(() => {
+    (async () => {
+      const fetchecdProducts = await api.products.fetch(1, 16);
+      setProducts(fetchecdProducts || []);
+    })();
+  }, []);
   return (
     <>
       <div className="p-2 flex items-center gap-3">
@@ -24,14 +42,32 @@ const products = () => {
         <SortButton />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
-        <ProductCard product={sampleProduct} />
-        <ProductCard product={sampleProduct} />
-        <ProductCard product={sampleProduct} />
-        <ProductCard product={sampleProduct} />
-        <ProductCard product={sampleProduct} />
+        {products.map((product) => (
+          <ProductCard
+            key={product.id}
+            product={{
+              id: product.id,
+              image: product.image || sampleProduct.image,
+              title: product.name || sampleProduct.title,
+              description: product.description || sampleProduct.description,
+              price: (parseFloat(product.price) * 0.8).toLocaleString(),
+              originalPrice: parseFloat(product.price).toLocaleString(),
+              discount: sampleProduct.discount,
+              rating: sampleProduct.rating,
+              category: sampleProduct.category,
+            }}
+          />
+        ))}
       </div>
     </>
   );
 };
 
-export default products;
+export default Products;
+
+// description
+// id
+// image
+// name
+// price
+// stockQuantity

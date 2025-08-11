@@ -1,30 +1,12 @@
 import axios from "axios";
 const products = {
-  async get() {
-    const { data } = await axios.post("/products/get");
-    return data;
+  async fetch(page = 1, limit = 1) {
+    const {data} = await axios.get(`/products/?page=${page}&limit=${limit}`);
+    return data.products;
   },
 
-  async add(token: string, productId: string) {
-    const { data } = await axios.post("/carts/add", {
-      token,
-      productId,
-    });
-    return data;
-  },
-
-  async makeOrder(
-    token: string,
-    address: string,
-    contact: string,
-    productId: string
-  ) {
-    const { data } = await axios.post("/orders/make", {
-      address,
-      contact,
-      token,
-      productId,
-    });
+  async fetchById(id: string) {
+    const { data } = await axios.get(`/products/${id}`);
     return data;
   },
 };
