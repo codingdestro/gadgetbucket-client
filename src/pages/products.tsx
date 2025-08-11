@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ProductCard from "../components/products/ProductCard";
 import SortButton from "../components/products/SortButton";
-import api from "../api";
+import useProducts from "../store/useProducts";
 
 const sampleProduct = {
   id: "1",
@@ -15,22 +15,13 @@ const sampleProduct = {
   category: "Electronics",
 };
 const Products = () => {
-  const [products, setProducts] = useState<
-    {
-      id: string;
-      name: string;
-      image: string;
-      description: string;
-      price: string;
-      stockQuantity: number;
-    }[]
-  >([]);
+  const fetchProducts = useProducts((state) => state.fetch);
+  const products = useProducts((state) => state.products);
+  const isLoading = useProducts((state) => state.isLoading);
+
   useEffect(() => {
-    (async () => {
-      const fetchecdProducts = await api.products.fetch(1, 16);
-      setProducts(fetchecdProducts || []);
-    })();
-  }, []);
+    fetchProducts();
+  }, []); //eslint-disable-line
   return (
     <>
       <div className="p-2 flex items-center gap-3">
@@ -42,22 +33,26 @@ const Products = () => {
         <SortButton />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
-        {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={{
-              id: product.id,
-              image: product.image || sampleProduct.image,
-              title: product.name || sampleProduct.title,
-              description: product.description || sampleProduct.description,
-              price: (parseFloat(product.price) * 0.8).toLocaleString(),
-              originalPrice: parseFloat(product.price).toLocaleString(),
-              discount: sampleProduct.discount,
-              rating: sampleProduct.rating,
-              category: sampleProduct.category,
-            }}
-          />
-        ))}
+        {isLoading
+          ? Array.from({ length: 8 }).map((_, index) => (
+              <div className="h-[320px] bg-slate-200 animate-fade rounded-md border" key={index}></div>
+            ))
+          : products.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={{
+                  id: product.id,
+                  image: product.image || sampleProduct.image,
+                  title: product.name || sampleProduct.title,
+                  description: product.description || sampleProduct.description,
+                  price: (parseFloat(product.price) * 0.8).toLocaleString(),
+                  originalPrice: parseFloat(product.price).toLocaleString(),
+                  discount: sampleProduct.discount,
+                  rating: sampleProduct.rating,
+                  category: sampleProduct.category,
+                }}
+              />
+            ))}
       </div>
     </>
   );
