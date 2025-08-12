@@ -1,8 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff, Mail, Lock, ShoppingBag } from "lucide-react";
+import api from "../../api";
+import { AxiosError } from "axios";
 
 const Login = () => {
+  const route = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -34,17 +38,22 @@ const Login = () => {
 
     // Simulate API call
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      await api.auth.login(formData)
       console.log("Login attempt:", formData);
       alert("Login successful! Welcome back.");
-
+      route("/"); // Redirect to home page after successful login
       // Reset form
       setFormData({
         email: "",
         password: "",
       });
     } catch (error) {
-      alert("Login failed. Please try again.");
+      console.log(error)
+      if (error instanceof AxiosError) {
+        alert(error.response?.data?.message || "Login failed. Please try again.");
+      } else {
+        alert("Login failed. Please try again.");
+      }
     } finally {
       setIsLoading(false);
     }

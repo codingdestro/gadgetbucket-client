@@ -1,23 +1,32 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import api from "../api";
+import { ProductType } from "../types/productType";
+import { useCall } from "../hooks/useCall";
 
-const sampleProduct = {
-  id: "1",
-  title: "Sample Product",
-  description: "This is a sample product description.",
-  price: 29.99,
-  originalPrice: 39.99,
-  image: "https://m.media-amazon.com/images/I/71xS69DTCbL._AC_UY218_.jpg",
-  discount: 25, // 25% off
-  rating: 4.5, // Optional rating for the product
-  category: "Electronics",
-};
 export default function ViewProduct() {
+  const [product, setProduct] = useState<ProductType | null>(null);
+  const [quantity, setQuantity] = useState<number>(1);
   const params = useParams<{ productId: string }>();
   useEffect(() => {
-    // Fetch product details using params.productId
-    console.log("Fetching product details for ID:", params.productId);
+    api.products.fetchById(params.productId!).then((product: ProductType) => {
+      setProduct({
+        ...product,
+      });
+    });
   }, []); //eslint-disable-line react-hooks/exhaustive-deps
+  const { isLoading, callApi } = useCall(() =>
+    api.cart.add(product!.id, quantity)
+  );
+
+  const addToCartHandler = async () => {
+    if (!product) return;
+    if (!isLoading) await callApi();
+  };
+
+  if (!product) {
+    return <div>Loading...</div>;
+  }
   return (
     <div>
       <div className="max-w-6xl mx-auto p-4 lg:p-8 h-screen">
@@ -25,9 +34,9 @@ export default function ViewProduct() {
           {/* Product Image */}
           <div className="flex justify-center">
             <img
-              src={sampleProduct.image}
-              alt={sampleProduct.title}
-              className="w-full max-w-md h-auto rounded-lg shadow-lg object-contain p-2"
+              src={product.image}
+              alt={product.name}
+              className="w-xxs max-w-md h-auto rounded-lg shadow-lg object-contain p-2"
             />
           </div>
 
@@ -35,22 +44,22 @@ export default function ViewProduct() {
           <div className="space-y-6">
             <div>
               <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                {sampleProduct.title}
+                {product.name}
               </h1>
               <p className="text-sm text-gray-500 uppercase tracking-wide">
-                {sampleProduct.category}
+                Electronic
               </p>
             </div>
 
             <div className="flex items-center space-x-4">
               <span className="text-3xl font-bold text-green-600">
-                ${sampleProduct.price}
+                ₹{(parseFloat(product.price.toString()) * 0.8).toLocaleString()}
               </span>
               <span className="text-lg text-gray-400 line-through">
-                ${sampleProduct.originalPrice}
+                ₹{parseFloat(product.price.toString()).toLocaleString()}
               </span>
               <span className="bg-red-100 text-red-800 text-sm font-medium px-2.5 py-0.5 rounded">
-                {sampleProduct.discount}% OFF
+                {25}% OFF
               </span>
             </div>
 
@@ -60,9 +69,7 @@ export default function ViewProduct() {
                   <svg
                     key={i}
                     className={`w-5 h-5 ${
-                      i < Math.floor(sampleProduct.rating)
-                        ? "text-yellow-400"
-                        : "text-gray-300"
+                      i < Math.floor(4.2) ? "text-yellow-400" : "text-gray-300"
                     }`}
                     fill="currentColor"
                     viewBox="0 0 20 20"
@@ -71,9 +78,7 @@ export default function ViewProduct() {
                   </svg>
                 ))}
               </div>
-              <span className="text-gray-600 text-sm">
-                {sampleProduct.rating} out of 5
-              </span>
+              <span className="text-gray-600 text-sm">{4.2} out of 5</span>
             </div>
 
             <div>
@@ -81,7 +86,7 @@ export default function ViewProduct() {
                 Description
               </h3>
               <p className="text-gray-700 leading-relaxed">
-                {sampleProduct.description}
+                {product.description}
               </p>
             </div>
 
@@ -95,8 +100,9 @@ export default function ViewProduct() {
                 </label>
                 <select
                   id="quantity"
+                  onChange={(e) => setQuantity(Number(e.target.value))}
                   className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  defaultValue={1}
+                  defaultValue={quantity}
                 >
                   {[...Array(10)].map((_, i) => (
                     <option key={i + 1} value={i + 1}>
@@ -105,8 +111,11 @@ export default function ViewProduct() {
                   ))}
                 </select>
               </div>
-              <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition duration-200">
-                Add to Cart
+              <button
+                onClick={addToCartHandler}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition duration-200"
+              >
+                {isLoading ? "Adding to Cart..." : "Add to Cart"}
               </button>
             </div>
           </div>

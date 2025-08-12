@@ -3,40 +3,32 @@ import { ProductType } from "../types/productType";
 import api from "../api";
 export type CartType = {
   id: string;
+  quantity: number;
   product: ProductType;
-  payment: number;
 };
 type State = {
   isLoading: boolean;
   error: string;
   cart: CartType[];
-  payment: number;
 };
 
 type Action = {
-  fetchCart: () => Promise<any>;
-  deleteCartItem: (id: string) => Promise<any>;
+  fetchCart: () => Promise<void>;
+  deleteCartItem: (id: string) => Promise<void>;
 };
 
 const useCart = create<State & Action>((set) => ({
   isLoading: true,
   error: "",
   cart: [],
-  payment: 0,
   async fetchCart() {
     set({ error: "", isLoading: true });
     try {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        set({ error: "Empty token", isLoading: false });
-        return;
-      }
-      const data = await api.cart.get(token);
+      const data = await api.cart.get();
       set({
         isLoading: false,
         error: "",
-        cart: data?.carts,
-        payment: data?.payment,
+        cart: data?.cart,
       });
     } catch (error) {
       console.log("failed to fetch user cart");
@@ -45,8 +37,12 @@ const useCart = create<State & Action>((set) => ({
 
   async deleteCartItem(id) {
     try {
-      const token = localStorage.getItem("token") || "";
-      await api.cart.delete(token, id);
+      const res = await api.cart.delete(id);
+      if (res.status === 200) {
+        set((state) => ({
+          cart: state.cart.filter((item) => item.id !== id),
+        }));
+      }
     } catch (error) {
       console.log(error);
     }

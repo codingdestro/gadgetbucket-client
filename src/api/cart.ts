@@ -1,19 +1,45 @@
 import axios from "axios";
 
 const cart = {
-  async get(token: string) {
-    const { data } = await axios.post("/carts/get", {
-      token,
+  async get() {
+    const token = localStorage.getItem("token");
+    if (!token) throw "No token found";
+    const { data } = await axios.get("/carts/", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     return data;
   },
-  async delete(token: string, cartId: string) {
-    const { data } = await axios.delete("/carts/remove", {
+  async delete(cartId: string) {
+    const token = localStorage.getItem("token");
+    if (!token) throw "No token found";
+    const res = await axios.delete("/carts/remove", {
       data: {
-        token,
         cartId,
       },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
+    return res;
+  },
+
+  async add(productId: string, quantity: number) {
+    const token = localStorage.getItem("token");
+    if (!token) throw "No token found";
+    const { data } = await axios.post(
+      "/carts/add",
+      {
+        productId,
+        quantity,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return data;
   },
 

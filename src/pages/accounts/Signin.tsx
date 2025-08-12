@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Eye, EyeOff, Mail, Lock, ShoppingBag, User } from "lucide-react";
+import api from "../../api";
 
 const Signin = () => {
   const [formData, setFormData] = useState({
@@ -35,7 +36,7 @@ const Signin = () => {
 
     // Simulate API call
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      await api.auth.signin(formData);
       console.log("Login attempt:", formData);
       alert("Login successful! Welcome back.");
 

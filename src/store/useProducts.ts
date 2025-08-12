@@ -1,20 +1,25 @@
 import { create } from "zustand";
-import { ProductType } from "../types/productType";
 import api from "../api";
 
+interface IProduct {
+  id: string;
+  name: string;
+  image: string;
+  price: string;
+  description: string;
+  stockQuantity: number;
+}
+
 type State = {
-  products: ProductType[];
+  products: IProduct[];
   isLoading: boolean;
-  cartNotify: boolean;
   error: string;
   isAddedToCart: string;
-  selectedProduct: { id: string; img: string; title: string; price: number };
-  clearCartNotify: () => void;
+  selectedProduct: IProduct;
 };
 
 type Action = {
-  fetch: () => Promise<any>;
-  addToCartProduct: (id: string) => Promise<any>;
+  fetch: () => Promise<void>;
   sortPrice: (order: "high" | "low") => void;
 };
 
@@ -22,9 +27,11 @@ const useProducts = create<State & Action>((set) => ({
   products: [],
   selectedProduct: {
     id: "",
-    title: "",
-    img: "",
-    price: 0,
+    name: "",
+    image: "",
+    price: "0",
+    description: "",
+    stockQuantity: 0,
   },
   isLoading: true,
   error: "",
@@ -34,8 +41,10 @@ const useProducts = create<State & Action>((set) => ({
   sortPrice(order) {
     set({ isLoading: true });
     set((state) => ({
-      products: state.products.sort((a, b) => {
-        return order === "low" ? a.price - b.price : b.price - a.price;
+      products: state.products.sort((a: IProduct, b: IProduct) => {
+        return order === "low"
+          ? parseFloat(a.price) - parseFloat(b.price)
+          : parseFloat(b.price) - parseFloat(a.price);
       }),
     }));
     set({ isLoading: false });
@@ -43,26 +52,11 @@ const useProducts = create<State & Action>((set) => ({
 
   async fetch() {
     try {
-      const data = await api.products.get();
-      if (data?.products) set({ isLoading: false, products: data?.products });
+      const data = await api.products.fetch(1, 10);
+      if (data) set({ isLoading: false, products: data });
     } catch (error) {
       set({ isLoading: false, error: "error occured" });
     }
-  },
-
-  async addToCartProduct(id) {
-    try {
-      const token = localStorage.getItem("token");
-      set({ isAddedToCart: id });
-      if (token) {
-        await api.products.add(token, id);
-        set({ isAddedToCart: "", cartNotify: true });
-      }
-    } catch (error) {}
-  },
-
-  clearCartNotify() {
-    set({ cartNotify: false });
   },
 }));
 
