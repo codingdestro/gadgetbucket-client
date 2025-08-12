@@ -11,14 +11,18 @@ const cart = {
     });
     return data;
   },
-  async delete(token: string, cartId: string) {
-    const { data } = await axios.delete("/carts/remove", {
+  async delete(cartId: string) {
+    const token = localStorage.getItem("token");
+    if (!token) throw "No token found";
+    const res = await axios.delete("/carts/remove", {
       data: {
-        token,
         cartId,
       },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
-    return data;
+    return res;
   },
 
   async add(productId: string, quantity: number) {

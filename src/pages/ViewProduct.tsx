@@ -18,7 +18,7 @@ export default function ViewProduct() {
   const addToCartHandler = async () => {
     if (!product) return;
     const { data } = await api.cart.add(product.id, quantity);
-    console.log(data)
+    console.log(data);
   };
 
   if (!product) {
@@ -50,10 +50,10 @@ export default function ViewProduct() {
 
             <div className="flex items-center space-x-4">
               <span className="text-3xl font-bold text-green-600">
-                ${(parseFloat(product.price.toString()) * 0.8).toLocaleString()}
+                ₹{(parseFloat(product.price.toString()) * 0.8).toLocaleString()}
               </span>
               <span className="text-lg text-gray-400 line-through">
-                ${parseFloat(product.price.toString()).toLocaleString()}
+                ₹{parseFloat(product.price.toString()).toLocaleString()}
               </span>
               <span className="bg-red-100 text-red-800 text-sm font-medium px-2.5 py-0.5 rounded">
                 {25}% OFF
@@ -109,8 +109,9 @@ export default function ViewProduct() {
                 </select>
               </div>
               <button
-               onClick={addToCartHandler}
-               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition duration-200">
+                onClick={addToCartHandler}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition duration-200"
+              >
                 Add to Cart
               </button>
             </div>

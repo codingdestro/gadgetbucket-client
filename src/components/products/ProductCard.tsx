@@ -4,7 +4,7 @@ import { ProductType } from "../../types/productType";
 interface Props {
   product: ProductType & {
     discount?: number; // Optional discount percentage
-    originalPrice?: number |string; // Optional original price for comparison
+    originalPrice?: number | string; // Optional original price for comparison
     rating?: number; // Optional rating for the product
   };
 }
@@ -38,11 +38,11 @@ const ProductCard = ({ product }: Props) => {
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
                 <span className="text-2xl font-bold text-gray-900">
-                  ${product.price}
+                  ₹{product.price}
                 </span>
                 {product.originalPrice && (
                   <span className="text-lg text-gray-500 line-through">
-                    ${product.originalPrice}
+                    ₹{product.originalPrice}
                   </span>
                 )}
               </div>
@@ -57,8 +57,11 @@ const ProductCard = ({ product }: Props) => {
               )}
             </div>
 
-            <Link to={`/product/${product.id}`} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200">
-              Add to Cart
+            <Link
+              to={`/product/${product.id}`}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200"
+            >
+              View More
             </Link>
           </div>
         </div>
