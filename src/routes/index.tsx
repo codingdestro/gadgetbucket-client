@@ -21,7 +21,7 @@ import ViewProduct from "../pages/ViewProduct";
 const route = createBrowserRouter(
   createRoutesFromElements(
     <Route>
-      <Route element={<Navbar />}>
+      <Route element={<Navbar />} loader={TokenLoader}>
         <Route path="" element={<Home />} />
         <Route path="cart" element={<Cart />} />
         <Route path="order" element={<Order />} />
