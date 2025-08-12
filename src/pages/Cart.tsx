@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import CartProductCard from "../components/cart/CartProductCard";
+import api from "../api";
 
 const dummyCart = [
   {
@@ -21,6 +23,13 @@ const dummyCart = [
 
 const Cart = () => {
   const cart = dummyCart;
+  useEffect(()=>{
+    (async()=>{
+      const data = await api.cart.get();
+      console.log(data);
+
+    })()
+  })
 
   return (
     <section className="flex flex-col gap-5  relative items-center mt-5 ">

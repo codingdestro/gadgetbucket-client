@@ -9,10 +9,8 @@ interface Props {
 }
 const CartProductCard = ({ img, title, price, id, quantity }: Props) => {
   const deleteCartItem = useCart((state) => state.deleteCartItem);
-  const fetchCart = useCart((state) => state.fetchCart);
   const handleDeleteCartItem = async (id: string) => {
     await deleteCartItem(id);
-    await fetchCart();
   };
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 hover:shadow-md transition-shadow duration-200">

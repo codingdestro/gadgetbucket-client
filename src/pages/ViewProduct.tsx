@@ -14,6 +14,13 @@ export default function ViewProduct() {
       });
     });
   }, []); //eslint-disable-line react-hooks/exhaustive-deps
+
+  const addToCartHandler = async () => {
+    if (!product) return;
+    const { data } = await api.cart.add(product.id, quantity);
+    console.log(data)
+  };
+
   if (!product) {
     return <div>Loading...</div>;
   }
@@ -102,6 +109,7 @@ export default function ViewProduct() {
                 </select>
               </div>
               <button
+               onClick={addToCartHandler}
                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition duration-200">
                 Add to Cart
               </button>
