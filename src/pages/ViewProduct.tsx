@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../api";
 import { ProductType } from "../types/productType";
+import { useCall } from "../hooks/useCall";
 
 export default function ViewProduct() {
   const [product, setProduct] = useState<ProductType | null>(null);
@@ -14,11 +15,13 @@ export default function ViewProduct() {
       });
     });
   }, []); //eslint-disable-line react-hooks/exhaustive-deps
+  const { isLoading, callApi } = useCall(() =>
+    api.cart.add(product!.id, quantity)
+  );
 
   const addToCartHandler = async () => {
     if (!product) return;
-    const { data } = await api.cart.add(product.id, quantity);
-    console.log(data);
+    if (!isLoading) await callApi();
   };
 
   if (!product) {
@@ -112,7 +115,7 @@ export default function ViewProduct() {
                 onClick={addToCartHandler}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition duration-200"
               >
-                Add to Cart
+                {isLoading ? "Adding to Cart..." : "Add to Cart"}
               </button>
             </div>
           </div>

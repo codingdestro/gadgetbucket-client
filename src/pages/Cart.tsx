@@ -35,10 +35,13 @@ const Cart = () => {
           <div className="p-5 text-right rounded-lg mb-5 w-full border">
             <h1 className="text-2xl font-bold text-gray-800 ">
               Total: ₹
-              {cart.reduce(
-                (acc, item) => acc + parseFloat(item.product.price.toString()),
-                0
-              )}
+              {cart
+                .reduce(
+                  (acc, item) =>
+                    acc + parseFloat(item.product.price.toString()),
+                  0
+                )
+                .toLocaleString()}
             </h1>
             <button className="mt-4 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors">
               Proceed to Checkout
