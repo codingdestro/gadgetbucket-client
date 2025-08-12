@@ -6,8 +6,8 @@ const products = {
   },
 
   async fetchById(id: string) {
-    const { data } = await axios.get(`/products/${id}`);
-    return data;
+    const { data } = await axios.get(`/products/id/?id=${id}`);
+    return data.product;
   },
 };
 

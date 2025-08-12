@@ -18,6 +18,7 @@ const Products = () => {
   const fetchProducts = useProducts((state) => state.fetch);
   const products = useProducts((state) => state.products);
   const isLoading = useProducts((state) => state.isLoading);
+  const fetchedError = useProducts((state) => state.error);
 
   useEffect(() => {
     fetchProducts();
@@ -32,37 +33,37 @@ const Products = () => {
         />
         <SortButton />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
-        {isLoading
-          ? Array.from({ length: 8 }).map((_, index) => (
-              <div className="h-[320px] bg-slate-200 animate-fade rounded-md border" key={index}></div>
-            ))
-          : products.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={{
-                  id: product.id,
-                  image: product.image || sampleProduct.image,
-                  title: product.name || sampleProduct.title,
-                  description: product.description || sampleProduct.description,
-                  price: (parseFloat(product.price) * 0.8).toLocaleString(),
-                  originalPrice: parseFloat(product.price).toLocaleString(),
-                  discount: sampleProduct.discount,
-                  rating: sampleProduct.rating,
-                  category: sampleProduct.category,
-                }}
-              />
-            ))}
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4 min-h-[80vh]">
+        {isLoading ? (
+          Array.from({ length: 8 }).map((_, index) => (
+            <div
+              className="h-[320px] bg-slate-200 animate-fade rounded-md border"
+              key={index}
+            ></div>
+          ))
+        ) : fetchedError ? (
+          <div className="text-red-500 text-xl font-bold col-span-4 text-center py-10">Error fetching products</div>
+        ) : (
+          products.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={{
+                id: product.id,
+                image: product.image || sampleProduct.image,
+                name: product.name || sampleProduct.title,
+                description: product.description || sampleProduct.description,
+                price: (parseFloat(product.price) * 0.8).toLocaleString(),
+                originalPrice: parseFloat(product.price).toLocaleString(),
+                discount: sampleProduct.discount,
+                rating: sampleProduct.rating,
+                category: sampleProduct.category,
+              }}
+            />
+          ))
+        )}
       </div>
     </>
   );
 };
 
 export default Products;
-
-// description
-// id
-// image
-// name
-// price
-// stockQuantity

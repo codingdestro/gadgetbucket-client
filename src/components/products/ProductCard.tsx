@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { ProductType } from "../../types/productType";
 
 interface Props {
@@ -14,7 +15,7 @@ const ProductCard = ({ product }: Props) => {
         <div className="relative aspect-square overflow-hidden">
           <img
             src={product.image}
-            alt={product.title}
+            alt={product.id}
             className="w-full h-full object-contain p-5"
           />
           {product.discount && (
@@ -26,7 +27,7 @@ const ProductCard = ({ product }: Props) => {
 
         <div className="p-4 flex flex-col flex-grow">
           <h3 className="font-semibold text-gray-800 text-lg mb-2 line-clamp-2">
-            {product.title}
+            {product.name}
           </h3>
 
           <p className="text-gray-600 text-sm mb-3 line-clamp-3 flex-grow">
@@ -56,9 +57,9 @@ const ProductCard = ({ product }: Props) => {
               )}
             </div>
 
-            <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200">
+            <Link to={`/product/${product.id}`} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200">
               Add to Cart
-            </button>
+            </Link>
           </div>
         </div>
       </div>
