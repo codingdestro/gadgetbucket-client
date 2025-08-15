@@ -1,7 +1,7 @@
-import { LogIn } from "lucide-react";
 import { useState } from "react";
 import { Outlet, Link } from "react-router-dom";
 import Footer from "../Footer";
+import LoginButton from "./LoginButton";
 
 const NavLink = ({
   to,
@@ -39,8 +39,8 @@ const Navbar = () => {
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-8">
+            <div className="hidden md:flex items-center justify-between w-full">
+              <div className="ml-10 flex-1 flex items-baseline justify-around">
                 <NavLink to="/">Home</NavLink>
                 <NavLink to="/products">Products</NavLink>
                 <NavLink to="/order">Order</NavLink>
@@ -49,19 +49,10 @@ const Navbar = () => {
                 <NavLink to="/about">About</NavLink>
                 <NavLink to="/contact">Contact</NavLink>
               </div>
+              <LoginButton />
             </div>
 
             {/* Desktop Action Buttons */}
-            <div className="hidden md:flex items-center border rounded-lg bg-primary">
-              <Link
-                to="/account/login"
-                className="bg-primary text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-primary/90 transition-colors click flex items-center justify-center gap-4"
-              >
-                <LogIn className="w-5 h-5" />
-                Login
-              </Link>
-            </div>
-
             {/* Mobile menu button */}
             <div className="md:hidden">
               <button
@@ -102,7 +93,7 @@ const Navbar = () => {
         {/* Mobile Navigation Menu */}
         <div
           data-active={show}
-          className="h-0 overflow-hidden data-[active=true]:h-[80vh] transition-all opacity-0 data-[active=true]:opacity-100  duration-500 w-full z-10 absolute bg-white border"
+          className="h-0 overflow-hidden md:hidden data-[active=true]:h-[80vh] transition-all opacity-0 data-[active=true]:opacity-100  duration-500 w-full z-10 absolute bg-white border"
         >
           <div className="px-2 pt-2 pb-3 space-y-1 bg-bg-secondary border-t border-border-light animate-popup">
             <Link
@@ -154,7 +145,7 @@ const Navbar = () => {
             >
               Contact
             </Link>
-            <div className="flex items-center space-x-3 px-3 py-2">
+            {/* <div className="flex items-center space-x-3 px-3 py-2">
               <Link
                 to="/account/login"
                 className="flex items-center justify-center gap-4 bg-primary text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-primary/90 transition-colors click flex-1 text-center"
@@ -163,7 +154,8 @@ const Navbar = () => {
                 <LogIn className="w-5 h-5" />
                 Login
               </Link>
-            </div>
+            </div> */}
+            <LoginButton />
           </div>
         </div>
       </nav>

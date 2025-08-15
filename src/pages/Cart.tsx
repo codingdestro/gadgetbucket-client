@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import CartProductCard from "../components/cart/CartProductCard";
 import useCart from "../store/useCarts";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   // const cart = dummyCart;
@@ -32,20 +33,23 @@ const Cart = () => {
               );
             })}
           </div>
-          <div className="p-5 text-right rounded-lg mb-5 w-full border">
+          <div className="p-5 text-right rounded-lg mb-5 w-full border space-y-5">
             <h1 className="text-2xl font-bold text-gray-800 ">
               Total: ₹
               {cart
                 .reduce(
                   (acc, item) =>
-                    acc + parseFloat(item.product.price.toString()),
+                    acc + parseFloat(item.product.price.toString()) * item.quantity,
                   0
                 )
                 .toLocaleString()}
             </h1>
-            <button className="mt-4 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors">
+            <Link
+              to={"/checkout"}
+              className=" px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
+            >
               Proceed to Checkout
-            </button>
+            </Link>
           </div>
         </>
       )}

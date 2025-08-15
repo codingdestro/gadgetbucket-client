@@ -17,15 +17,17 @@ import About from "../pages/About";
 import Contact from "../pages/Contact";
 import TrackOrder from "../pages/TrackOrder";
 import ViewProduct from "../pages/ViewProduct";
+import Checkout from "../pages/Checkout";
 
 const route = createBrowserRouter(
   createRoutesFromElements(
     <Route>
-      <Route element={<Navbar />}>
+      <Route element={<Navbar />} loader={TokenLoader}>
         <Route path="" element={<Home />} />
         <Route path="cart" element={<Cart />} />
         <Route path="order" element={<Order />} />
         <Route path="track/:orderId" element={<TrackOrder />} />
+        <Route path="checkout" element={<Checkout />} />
         <Route path="products" element={<Products />} />
         <Route path="product/:productId" element={<ViewProduct />} />
         <Route path="about" element={<About />} />
